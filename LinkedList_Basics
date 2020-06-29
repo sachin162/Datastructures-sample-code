@@ -1,0 +1,151 @@
+package javaapplication9;
+class linkedlist
+{
+    public Link firstlink;
+    public linkedlist()
+    {
+        firstlink=null;
+    }
+    public boolean isEmpty()
+    {
+        return (firstlink==null);
+    }
+    public void insertfirstlink(int id,String name)
+    {
+        Link newlink=new Link(id,name);
+        newlink.next=firstlink;
+        firstlink=newlink;        
+    }
+    public void insertlastlink(int id ,String name)
+    {
+        Link temp=firstlink;
+        if(isEmpty())
+        {
+            insertfirstlink(id,name);
+        }
+        else
+        {
+            Link ll=new Link(id,name);
+            while(temp.next!=null)
+            {
+                temp=temp.next;
+            }
+            temp.next=ll;
+            ll.next=null;
+            
+        }
+        
+        
+    }
+    
+    public Link removefirstlink()
+    {
+        Link reflink=firstlink;
+        if(isEmpty())
+        {
+           System.out.println("EMPTY LIST"); 
+        }
+        else
+        {
+            
+            firstlink=firstlink.next;
+        }
+        return reflink;
+    }
+    public Link removelastlink()
+    {
+        Link temp=firstlink;
+        
+        while(temp.next.next!=null)
+        {
+            
+            temp=temp.next;
+            
+        }
+        temp.next=null;
+        return temp;
+        
+    }
+    public void display()
+    {
+        Link tl=firstlink;
+        while(tl!=null)//check itself whether node is there or not
+        {
+            tl.display();
+            try{
+            System.out.println("next link is "+tl.next.name);
+            }catch(NullPointerException e)
+            {
+                System.out.println(e.getMessage());
+            }
+            tl=tl.next;
+            System.out.println();
+        }
+    }
+    public Link removelink(int id)
+    {
+        Link cur=firstlink;
+        Link pre=firstlink;
+        while(cur.id!=id)
+        {
+            if(cur.next==null)
+            {
+                System.out.println("ID NOT FOUND");
+            }
+            else
+            {
+                pre=cur;
+                cur=cur.next;
+            }
+        }
+        if(cur==firstlink)
+        {
+            firstlink=firstlink.next;
+        }
+        else
+        {
+            System.out.println("FOUND A MATCH");
+            System.out.println("currentLink: " + cur);
+            System.out.println("firstLink: " + firstlink);
+
+            pre.next=cur.next;
+        }
+        return cur;
+    }
+}
+
+public class Link 
+{
+    String name;
+    int id;
+    public Link next;
+    public Link(int id,String name)
+    {
+        this.id=id;
+        this.name=name;
+    }
+    public void display()
+    {
+        System.out.println("ID: "+id+" NAME: "+name);
+    }
+
+    public static void main(String[] args) 
+    {
+        Link item;
+        linkedlist l=new linkedlist();
+        l.insertfirstlink(1, "Sachin");
+        l.insertlastlink(2, "Vishnu");
+        l.insertlastlink(3, "Shiva");
+        l.insertlastlink(4, "Sanjay");
+        l.insertlastlink(5, "Apoorva");
+        l.insertfirstlink(10, "LEAD");
+        l.display();
+        //item=l.removefirstlink();
+        //l.display();
+        l.removelastlink();
+        l.removelastlink();
+        l.display();
+        
+    }
+    
+}
